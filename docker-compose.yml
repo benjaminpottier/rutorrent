@@ -1,0 +1,27 @@
+version: '2.2'
+services:
+  pia:
+    image: qmcgaw/private-internet-access
+    container_name: pia
+    init: true
+    cap_add:
+      - NET_ADMIN
+    env_file:
+      - .env
+    environment:
+      - EXTRA_SUBNETS=192.168.4.0/22
+      - PROTOCOL=tcp
+      - PIA_ENCRYPTION=normal
+      - TINYPROXY=off
+      - SHADOWSOCKS=off
+    ports:
+      - 8000:80/tcp
+  rtorrent:
+    environment:
+      - USR_ID=1000
+      - GRP_ID=1000
+    image: diameter/rtorrent-rutorrent:latest
+    container_name: rtorrent
+    network_mode: "service:pia"
+    volumes:
+      - /tank/media/Downloads:/downloads

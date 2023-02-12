@@ -1,0 +1,11 @@
+#!/bin/bash
+
+filebot -script fn:amc \
+    --output "/tank/media" \
+    -r \
+    --action hardlink \
+	--conflict skip \
+	-non-strict \
+	--log-file $HOME/filebot/amc.log \
+	--def excludeList=$HOME/filebot/amc-exlude-list.txt \
+    "/tank/media/Downloads/complete"
