@@ -1,7 +1,7 @@
 version: '2.2'
 services:
   pia:
-    image: qmcgaw/private-internet-access
+    image: qmcgaw/gluetun
     container_name: pia
     init: true
     cap_add:
@@ -9,10 +9,12 @@ services:
     env_file:
       - .env
     environment:
-      - EXTRA_SUBNETS=192.168.4.0/22
-      - PROTOCOL=tcp
-      - PIA_ENCRYPTION=normal
-      - TINYPROXY=off
+      - VPN_SERVICE_PROVIDER=private internet access
+      - SERVER_REGIONS=Netherlands
+      - FIREWALL_OUTBOUND_SUBNETS=192.168.4.0/22
+      - OPENVPN_PROTOCOL=tcp
+      - PRIVATE_INTERNET_ACCESS_OPENVPN_ENCRYPTION_PRESET=normal
+      - HTTPPROXY=off
       - SHADOWSOCKS=off
     ports:
       - 8000:80/tcp
